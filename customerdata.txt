@@ -1,0 +1,10 @@
+1:Tiebout Wilmot:19920612-2385:1000:debit account:1000.00
+2:Patricia Seivwright:19881011-2394:1001:debit account:2000.00
+3:Teodorico Lanchberry:19881003-2386:1002:debit account:2500.00
+4:Tarrah Tunnick:19600721-2613:1003:debit account:500.00
+5:Marney Spottiswoode:19680216-9265:1004:debit account:800.00
+6:Cyrille Ladon:19791003-9283:1005:debit account:600.00
+7:Claribel Pigeram:19620414-2852:1006:debit account:320.00
+8:Katusha Newiss:19850113-9995:1007:debit account:20.00
+9:Ada Sabey:20050516-2388:1008:debit account:560.00
+10:Jamima Wellbelove:19481221-2282:1009:debit account:10000.00#1010:debit account:500000.00
