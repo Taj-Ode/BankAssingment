@@ -12,9 +12,9 @@ class Account:
     acc_list = []
 
     """Method for account object instantiation"""
-    def __init__(self, balance):
+    def __init__(self):
         self.account_number = next(Account.acc_nr_iterator)
-        self.balance = float(balance)
+        self.balance = float(0)
 
     """Method to represent the class object as a string"""
     def __str__(self):
