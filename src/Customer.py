@@ -19,6 +19,9 @@ class Customer:
         self.name = new_name
         print("Previous name: {0} has been changed to: {1}".format(old_name, self.name))
 
+    def __str__(self):
+        return f" Id: {self.customer_id} Name: {self.name} Pnr: {self.personal_number}"
+
     """Method to represent a class object as a string"""
     def __repr__(self):
         customer = f'Customer: {self.customer_id}, {self.name}, {self.personal_number}'

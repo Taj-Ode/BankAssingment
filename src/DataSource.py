@@ -1,4 +1,5 @@
 from Customer import Customer
+from pathlib2 import Path
 
 
 class DataSource:
@@ -9,9 +10,9 @@ class DataSource:
     def __init__(self):
         self.datasource_conn(DataSource.customer_data_path)
         self.datasource_list = []
+        self.customers = []
         self.accounts = []
-        self.loaded = False
-
+        # self.loaded = False
 
     @staticmethod
     def datasource_conn(path):
@@ -23,35 +24,33 @@ class DataSource:
             return False, "Connection unsuccessful"
 
     def get_all(self):
-        if not self.loaded:
-            with open(DataSource.customer_data_path, 'r') as customerData:
-                for line in customerData:
-                    self.datasource_list = (line.strip('\n').split(':'))
-            self.loaded = True
-        return self.datasource_list
+        with open(DataSource.customer_data_path, 'r') as customerData:
+            for line in customerData:
+                self.datasource_list = line.strip('\n').split(':')
+                customer_list = self.datasource_list[:3]
+                self.customers.append(customer_list)
+                accounts_array = ', '.join(self.datasource_list[3:]).split('#')
+                self.accounts.append(accounts_array)
+                print(self.datasource_list)
 
-    def get_customers(self):
-        temp_list = self.get_all()
-        self.datasource_list = map(lambda c: Customer(c[1], c[2]), customerData)
+    def update_file(self, search_text, replace_text):
+        file = Path(DataSource.customer_data_path)
+        data = file.read_text()
+        data = data.replace(search_text, replace_text)
+        file.write_text(data)
+        return "Text replaced"
 
 
-    def get_accounts(self):
-        accounts_array = ':'.join(self.datasource_list[3:]).split('#')
-        print(accounts_array)
 
-
-db = DataSource()
-print(db.datasource_conn(DataSource.customer_data_path))
-print(db.get_all())
-# print(db.get_customers())
+# db = DataSource()
+# print(db.get_all())
+# print(db.datasource_conn(DataSource.customer_data_path))
+# print(db.accounts)
 # print(db.get_accounts())
-
-
-
 
 
 # test = DataSource()
 # test.get_all()
 
-#customer_array = self.datasource_list[:3]
-#print(customer_array)
+# customer_array = self.datasource_list[:3]
+# print(customer_array)

@@ -13,51 +13,53 @@ class Bank:
 
     def __init__(self):
         self.ds = DataSource()
+        self._load()
         self.customers = []
         self.accounts = []
-        self._load()
 
     def _load(self):
-        self.customers.append(self.ds.get_customers())
-        self.accounts = self.ds.get_accounts()
-
-        # with open(DataSource.customer_data_path, 'r') as customerData:
-        #     for line in customerData:
-        #         Bank.all_data = (line.strip('\n').split(':'))
-        #         customer_array = Bank.all_data[:3]
-        #         self.customers.append(customer_array)
-        #         accounts_array = ':'.join(Bank.all_data[3:]).split('#')
-        #         self.accounts.append(accounts_array)
-        #     return Bank.all_data
+        return self.ds.get_all()
 
     def get_customers(self):
-        return self.customers
+        print(self.ds.customers)
 
     def get_customer(self, pnr):
-        for customer in self.customers:
+        for customer in self.ds.customers:
             if pnr == customer[2]:
                 return customer
-        return None, "That customer doesn't exist"
+        return "That customer doesn't exist"
+
+    def change_customer_name(self, name, pnr):
+        for customer in self.ds.customers:
+            if name == customer[1] and pnr == customer[2]:
+                new_name = input("What name do you want to change to? ")
+                self.ds.update_file(search_text=name, replace_text=new_name)
+            else:
+                return "pnr or name is wrong. Couldn't find customer."
 
     def get_accounts(self):
-        for customer_accounts in self.accounts:
+        for customer_accounts in self.ds.accounts:
             n = len(customer_accounts)
             n_split = np.array_split(customer_accounts, n)
             for single_account in n_split:
-                (list(single_account))
+                print(list(single_account))
 
     # def get_account(self, acc_nr):
-    #     for account in single_accounts
+    #     for account in self.ds.accounts:
+    #         if acc_nr ==
 
 
 nordea = Bank()
-print(nordea.get_customers())
+# print(nordea.get_customers())
 # print('\n')
 # print(nordea.get_customer('19920612-2385'))
 # print(nordea.get_customer('19881011-2394'))
-#
-# print(nordea.get_customer('19'))
+# # print(nordea.get_customer('19'))
 # print('\n')
-# print(nordea.get_accounts())
+# # print(nordea.get_accounts())
+# print(nordea.remove_customer('19881003-2386'))
 
-
+# nordea.change_customer_name('Tiebout Wilmot', '19920612-2385')
+"""Efter att ha kört def change_customer_name en gång så har jag inte kunnat
+köra samma funktion igen... """
+nordea.change_customer_name('Marney Spottiswoode', '19680216-9265')

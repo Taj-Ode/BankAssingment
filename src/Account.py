@@ -18,7 +18,8 @@ class Account:
 
     """Method to represent the class object as a string"""
     def __str__(self):
-        return f"{self.account_number} {self.account_type} {self.balance}"
+        return f"Account number: {self.account_number}, Type: {self.account_type}, Balance: {self.balance}"
+
 
     def get_information(self):
         return self.account_number, self.account_type, self.balance
