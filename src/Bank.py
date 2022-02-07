@@ -14,11 +14,9 @@ class Bank:
     def __init__(self):
         self.ds = DataSource()
         self._load()
-        self.customers = []
-        self.accounts = []
 
     def _load(self):
-        return self.ds.get_all()
+        return self.ds.parse_datasource()
 
     def get_customers(self):
         print(self.ds.customers)
@@ -34,8 +32,9 @@ class Bank:
             if name == customer[1] and pnr == customer[2]:
                 new_name = input("What name do you want to change to? ")
                 self.ds.update_file(search_text=name, replace_text=new_name)
-            else:
-                return "pnr or name is wrong. Couldn't find customer."
+                self.ds.refresh()
+                return "name change successful"
+        return "pnr or name is wrong. Couldn't find customer."
 
     def get_accounts(self):
         for customer_accounts in self.ds.accounts:
@@ -48,18 +47,14 @@ class Bank:
     #     for account in self.ds.accounts:
     #         if acc_nr ==
 
-
-nordea = Bank()
+# pnr = '2'
+# nordea = Bank()
 # print(nordea.get_customers())
 # print('\n')
-# print(nordea.get_customer('19920612-2385'))
+# print(nordea.get_customer(pnr))
 # print(nordea.get_customer('19881011-2394'))
-# # print(nordea.get_customer('19'))
+# print(nordea.get_customer('19'))
 # print('\n')
-# # print(nordea.get_accounts())
+# print(nordea.get_accounts())
 # print(nordea.remove_customer('19881003-2386'))
 
-# nordea.change_customer_name('Tiebout Wilmot', '19920612-2385')
-"""Efter att ha kört def change_customer_name en gång så har jag inte kunnat
-köra samma funktion igen... """
-nordea.change_customer_name('Marney Spottiswoode', '19680216-9265')

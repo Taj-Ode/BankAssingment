@@ -23,7 +23,7 @@ class DataSource:
         except:
             return False, "Connection unsuccessful"
 
-    def get_all(self):
+    def parse_datasource(self):
         with open(DataSource.customer_data_path, 'r') as customerData:
             for line in customerData:
                 self.datasource_list = line.strip('\n').split(':')
@@ -31,7 +31,6 @@ class DataSource:
                 self.customers.append(customer_list)
                 accounts_array = ', '.join(self.datasource_list[3:]).split('#')
                 self.accounts.append(accounts_array)
-                print(self.datasource_list)
 
     def update_file(self, search_text, replace_text):
         file = Path(DataSource.customer_data_path)
@@ -39,6 +38,13 @@ class DataSource:
         data = data.replace(search_text, replace_text)
         file.write_text(data)
         return "Text replaced"
+
+    def refresh(self):
+        self.datasource_list = []
+        self.customers = []
+        self.accounts = []
+        self.parse_datasource()
+
 
 
 
