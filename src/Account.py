@@ -9,17 +9,18 @@ class Account:
 
     account_type = "Debit"
     acc_nr_iterator = itertools.count(start=1000, step=1)
-    acc_list = []
 
     """Method for account object instantiation"""
-    def __init__(self):
+
+    def __init__(self, customer_id):
         self.account_number = next(Account.acc_nr_iterator)
         self.balance = float(0)
+        self.customer_id = customer_id
 
     """Method to represent the class object as a string"""
+
     def __str__(self):
         return f"Account number: {self.account_number}, Type: {self.account_type}, Balance: {self.balance}"
-
 
     def get_information(self):
         return self.account_number, self.account_type, self.balance

@@ -10,7 +10,7 @@ class DataSource:
     def __init__(self):
         self.datasource_conn(DataSource.customer_data_path)
         self.datasource_list = []
-        self.customers = []
+        self.__customers = []
         self.accounts = []
         # self.loaded = False
 

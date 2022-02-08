@@ -11,7 +11,6 @@ class Customer:
     def __init__(self, name, pnr):
         self.name = name
         self.personal_number = str(pnr)
-        self.accounts = [Account()]  # everytime a customer object is instantiated. An account is instantiated too
         self.customer_id = next(Customer.customer_id_iterator)
 
     def change_name(self, new_name):
