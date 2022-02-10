@@ -18,7 +18,7 @@ class DataSource:
             return False, "Connection unsuccessful"
 
     @staticmethod
-    def get_customer_list():
+    def get_customers_list():
         data_list = []
         customer_list = []
         with open(DataSource.customer_data_path, 'r') as all_data:

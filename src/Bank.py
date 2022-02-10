@@ -11,7 +11,7 @@ class Bank:
     def __init__(self):
         self.ds = DataSource()
         self._load()
-        self.customers = self.ds.get_customer_list()
+        self.customers = self.ds.get_customers_list()
         self.accounts = self.ds.get_accounts_list()
 
     def _load(self):
@@ -80,7 +80,7 @@ class Bank:
     def add_account(self, pnr):
         customer = self.get_customer(pnr)
         if customer is not None:
-            next_acc_nr = self.get_next_acc_nr()
+            next_acc_nr = self.get_next_acc_num()
             self.accounts.append(Account(customer.customer_id, next_acc_nr))
             return True
         return False
@@ -122,7 +122,7 @@ class Bank:
         next_id = int(last_id) + 1
         return next_id
 
-    def get_next_acc_nr(self):
+    def get_next_acc_num(self):
         acc_nrs = []
         for account in self.accounts:
             acc_nrs.append(account.acc_number)
