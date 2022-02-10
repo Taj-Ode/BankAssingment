@@ -31,4 +31,4 @@ connected to the bank can be shown or created.
 - Data source is a *.txt* file
 
 ## Klassdiagram
-![This is the class UML](BankUML.png)
+![This is the class UML](UML.png)
