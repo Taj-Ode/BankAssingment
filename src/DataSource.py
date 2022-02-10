@@ -1,4 +1,5 @@
 from Customer import Customer
+from Account import Account
 from pathlib2 import Path
 
 
@@ -6,13 +7,6 @@ class DataSource:
     """ Data Source class"""
 
     customer_data_path = "C:\\Users\\Tajia\\Handels\\Artificiell Intelligence 1\\Assignments\\BankAssingment2701\\BankAssingment\\customerdata.txt"
-
-    def __init__(self):
-        self.datasource_conn(DataSource.customer_data_path)
-        self.datasource_list = []
-        self.__customers = []
-        self.accounts = []
-        # self.loaded = False
 
     @staticmethod
     def datasource_conn(path):
@@ -23,40 +17,62 @@ class DataSource:
         except:
             return False, "Connection unsuccessful"
 
-    def parse_datasource(self):
-        with open(DataSource.customer_data_path, 'r') as customerData:
-            for line in customerData:
-                self.datasource_list = line.strip('\n').split(':')
-                customer_list = self.datasource_list[:3]
-                self.customers.append(customer_list)
-                accounts_array = ', '.join(self.datasource_list[3:]).split('#')
-                self.accounts.append(accounts_array)
+    @staticmethod
+    def get_customer_list():
+        data_list = []
+        customer_list = []
+        with open(DataSource.customer_data_path, 'r') as all_data:
+            for line in all_data:
+                data = line.strip('\n').split(':')
+                data_list.append(data)
+            for x in data_list:
+                customer = Customer(int(x[0]), x[1], x[2])
+                customer_list.append(customer)
+        return customer_list
 
-    def update_file(self, search_text, replace_text):
-        file = Path(DataSource.customer_data_path)
-        data = file.read_text()
-        data = data.replace(search_text, replace_text)
-        file.write_text(data)
-        return "Text replaced"
+    @staticmethod
+    def get_accounts_list():
+        accounts_list = []
+        with open(DataSource.customer_data_path, 'r') as all_data:
+            for line in all_data:
+                temp_list = line.strip('\n').split(':')
+                customer_id = int(temp_list[0])
+                data_list = ','.join(temp_list[3:]).split('#')
+                for x in data_list:  # the accounts for each customer (each line)
+                    account_items = x.split(',')
+                    acc_num = int(account_items[0])
+                    acc_type = account_items[1]
+                    balance = float(account_items[2])
+                    account = Account(customer_id, acc_num, acc_type, balance)
+                    accounts_list.append(account)
+        return accounts_list
 
-    def refresh(self):
-        self.datasource_list = []
-        self.customers = []
-        self.accounts = []
-        self.parse_datasource()
-
-
-
-
-# db = DataSource()
-# print(db.get_all())
-# print(db.datasource_conn(DataSource.customer_data_path))
-# print(db.accounts)
-# print(db.get_accounts())
-
-
-# test = DataSource()
-# test.get_all()
-
-# customer_array = self.datasource_list[:3]
-# print(customer_array)
+    # Below are unused methods meant for VG grade
+    # def get_next_customer_id(self):
+    #     customer_ids = []
+    #     with open(DataSource.customer_data_path, 'r') as all_data:
+    #         for lines in all_data:
+    #             line = lines.strip().split(":")
+    #             customer_ids.append(line[0])
+    #         last_id = customer_ids[-1]
+    #         next_id = int(last_id) + 1
+    #     return next_id
+    #
+    # def get_next_acc_nr(self):
+    #     acc_nrs = []
+    #     for account in self.get_accounts_list():
+    #         acc_nrs.append(account.acc_number)
+    #     last_acc_num = acc_nrs[-1]
+    #     next_acc_num = int(last_acc_num) + 1
+    #     return next_acc_num
+    #
+    # def update_name(self, search_text, replace_text):
+    #     file = Path(DataSource.customer_data_path)
+    #     data = file.read_text()
+    #     data = data.replace(search_text, replace_text)
+    #     file.write_text(data)
+    #     return "Text replaced"
+    #
+    # def refresh(self):
+    #     self.get_customer_list()
+    #     self.get_accounts_list()

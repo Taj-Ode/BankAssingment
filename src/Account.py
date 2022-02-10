@@ -1,46 +1,17 @@
-# import Transaction
-# import datetime
-# import pytz
-import itertools
-
-
 class Account:
     """ Class for accounts """
 
-    account_type = "Debit"
-    acc_nr_iterator = itertools.count(start=1000, step=1)
-
     """Method for account object instantiation"""
-
-    def __init__(self, customer_id):
-        self.account_number = next(Account.acc_nr_iterator)
-        self.balance = float(0)
+    def __init__(self, customer_id, acc_num, acc_type="Debit", balance=0.0):
+        self.balance = balance
         self.customer_id = customer_id
+        self.acc_type = acc_type
+        self.acc_number = acc_num
 
-    """Method to represent the class object as a string"""
-
+    """Methods to represent the class object as a string"""
     def __str__(self):
-        return f"Account number: {self.account_number}, Type: {self.account_type}, Balance: {self.balance}"
+        return f"Account number: {self.acc_number}, Type: {self.acc_type}, Balance: {self.balance}"
 
-    def get_information(self):
-        return self.account_number, self.account_type, self.balance
-
-    def deposit(self):
-        amount = float(input("Enter amount to be deposited: "))
-        if amount > 0:
-            self.balance += amount
-            print("You deposited {0} kr and your balance is now {1}".format(amount, self.balance))
-            # self.transaction_list.append(pytz.utc.localize(datetime.datetime.utcnow()), amount)
-        else:
-            print("Please enter a value greater than 0.")
-
-    def withdraw(self):
-        amount = float(input("Current Balance is: {} \nEnter amount to be withdrawn:".format(self.balance)))
-        if 0 < amount <= self.balance:
-            self.balance -= amount
-            print("You withdrew {0} kr and your balance is now {1}".format(amount, self.balance))
-        else:
-            print("Insufficient funds")
-
-    def print_balance(self):
-        print("Balance is {}".format(self.balance))
+    def __repr__(self):
+        return f"Account(customer_id={self.customer_id}, acc_num={self.acc_number}, acc_type={self.acc_type}, " \
+               f"balance={self.balance})"
