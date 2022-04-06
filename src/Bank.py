@@ -51,7 +51,7 @@ class Bank:
     def change_customer_name(self, pnr, new_name):
         customer = self.get_customer(pnr)
         if customer is not None:
-            customer.name = new_name
+            self.ds.update_name(search_text=customer.name, replace_text=new_name)
             return True
         else:
             return False
